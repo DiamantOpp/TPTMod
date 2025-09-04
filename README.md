@@ -1,3 +1,5 @@
+NOTE: New elements added are SPLT (short for Solid PLuTonium) and SURN (short for Solid URaNium)
+
 The Powder Toy - February 2025
 ==========================
 
