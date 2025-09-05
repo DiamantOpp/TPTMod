@@ -7,11 +7,11 @@
 *.sh
 *.py
 *.png
-!resources/generated_icons/*
 *.ppm
 *.swp
 *~
 .DS_Store
+!resources/*
 
 # Build files
 build*/*
