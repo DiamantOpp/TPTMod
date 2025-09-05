@@ -1,11 +1,13 @@
 # Misc extensions, system files
 *.zip
 *.txt
+!meson_options.txt
 *.gz
 *.out
 *.sh
 *.py
 *.png
+!resources/generated_icons/*
 *.ppm
 *.swp
 *~
@@ -35,6 +37,7 @@ config.log
 *.def
 *.pref
 *.lua
+!src/**
 screenshot_*
 
 # Visual studio
