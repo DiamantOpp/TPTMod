@@ -2563,7 +2563,7 @@ void Simulation::UpdateParticles(int start, int end)
 										parts[i].tmp = 0;
 										t = PT_BMTL;
 									}
-									if (t == PT_PLUT)
+									if (t == PT_PLUT || t == PT_SPLT)
 									{
 										parts[i].tmp = 0;
 										t = PT_LAVA;
@@ -2631,7 +2631,7 @@ void Simulation::UpdateParticles(int start, int end)
 							parts[i].tmp--;
 							parts[i].temp = 3500;
 						}
-						if (parts[i].ctype==PT_PLUT&&parts[i].tmp>0)
+						if ((parts[i].ctype==PT_PLUT || parts[i].ctype==PT_SPLT)&&parts[i].tmp>0)
 						{
 							parts[i].tmp--;
 							parts[i].temp = MAX_TEMP;

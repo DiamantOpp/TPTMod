@@ -46,6 +46,7 @@ void Element::Element_DEUT()
 	HighTemperatureTransition = NT;
 
 	DefaultProperties.life = 10;
+	DefaultProperties.temp = 99999999.0f;
 
 	Update = &update;
 	Graphics = &graphics;

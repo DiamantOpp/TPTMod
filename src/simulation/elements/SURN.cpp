@@ -1,3 +1,4 @@
+#include "simulation/ElementClasses.h"
 #include "simulation/ElementCommon.h"
 #include "simulation/ElementDefs.h"
 
@@ -38,8 +39,8 @@ void Element::Element_SURN()
 
 	LowPressure = IPL;
 	LowPressureTransition = NT;
-	HighPressure = IPH;
-	HighPressureTransition = NT;
+	HighPressure = 60;
+	HighPressureTransition = PT_URAN;
 	LowTemperature = ITL;
 	LowTemperatureTransition = NT;
 	HighTemperature = ITH;
