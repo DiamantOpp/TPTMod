@@ -15,7 +15,7 @@ void Element::Element_SPLT()
 	AirDrag = 0.00f * CFDS;
 	AirLoss = 0.95f;
 	Loss = 0.00f;
-	Collision = 1.0f;
+	Collision = 0.0f;
 	Gravity = 0.4f;
 	Diffusion = 0.00f;
 	HotAir = 0.000f	* CFDS;
