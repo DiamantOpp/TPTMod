@@ -4,6 +4,7 @@
 #include "simulation/ElementDefs.h"
 #include <algorithm>
 #include <cstdio>
+#include <linux/limits.h>
 
 static int update(UPDATE_FUNC_ARGS);
 
@@ -84,27 +85,7 @@ static int update(UPDATE_FUNC_ARGS) {
 		}
 
 	// Deuteride reactions
-
-	for (int rx = -1; rx <= 1; rx++)
-		for (int ry = -1; ry <= 1; ry++) {
-			if (!rx && !ry) continue;
-			
-			int neighborData = pmap[y + ry][x + rx];
-			if (!neighborData || TYP(neighborData) != PT_NEUT)
-				continue;
-
-			printf("LID struck by NEUT!\n");
-
-			sim->create_part(-1, x, y, PT_NBLE); // Helium substitute, close enough
-			sim->create_part(-1, x, y, PT_NBLE);
-			sim->create_part(-1, x, y, PT_NEUT); // Neutron created from fusion
-		}
-
-	// Explanation: LiD is struck by neutron;
-	//   ⁶Li + n → ⁴He(helium) + ³H(tritium)
-	//   ²H + n  → <no byproduct>
-	//   ²H + ³H → ⁴He + n
-	// Net output: ⁴He₂ + n (Two helium-4 atoms, and one neutron)
+	// (MOVED, SEE src/simulation/elements/NEUT.cpp line 106)
 
 	return 0;
 }

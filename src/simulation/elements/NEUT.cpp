@@ -1,6 +1,7 @@
 #include "simulation/ElementClasses.h"
 #include "simulation/ElementCommon.h"
 #include "FIRE.h"
+#include <cmath>
 
 static int update(UPDATE_FUNC_ARGS);
 static int graphics(GRAPHICS_FUNC_ARGS);
@@ -102,6 +103,21 @@ static int update(UPDATE_FUNC_ARGS)
 					DeutExplosion(sim, parts[ID(r)].life, x+rx, y+ry, restrict_flt(parts[ID(r)].temp + parts[ID(r)].life*500.0f, MIN_TEMP, MAX_TEMP), PT_NEUT);
 					sim->kill_part(ID(r));
 				}
+				break;
+			case PT_LID:
+				if (sim->rng.chance(1, 10)) break; // This reaction is approximately a 9 in 10 chance, so by extension a
+																		  // 1 in 10 chance of failing
+
+				sim->create_part(  -1,  x, y, PT_NBLE); // Helium substitute, close enough
+				sim->create_part(  -1,  x, y, PT_NBLE);
+				sim->create_part(ID(r), x, y, PT_NEUT); // Neutron created from fusion
+
+				// Explanation: LiD is struck by neutron;
+				//   ⁶Li + n → ⁴He(helium) + ³H(tritium)
+				//   ²H + n  → <no byproduct>
+				//   ²H + ³H → ⁴He + n
+				// Net output: ⁴He₂ + n (Two helium-4 atoms, and one neutron)
+				
 				break;
 			case PT_GUNP:
 				if (sim->rng.chance(3, 200))
