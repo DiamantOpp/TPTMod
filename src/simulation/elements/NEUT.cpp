@@ -108,9 +108,17 @@ static int update(UPDATE_FUNC_ARGS)
 				if (sim->rng.chance(1, 10)) break; // This reaction is approximately a 9 in 10 chance, so by extension a
 																		  // 1 in 10 chance of failing
 
-				sim->create_part(  -1,  x, y, PT_NBLE); // Helium substitute, close enough
-				sim->create_part(  -1,  x, y, PT_NBLE);
-				sim->create_part(ID(r), x, y, PT_NEUT); // Neutron created from fusion
+				for (int i = 0; i < 2; i++)
+					sim->create_part(  -1,  x, y, PT_HLUM);
+
+				for (int i = 0; i < 5; i++) // Now, I know it is only supposed to emit one neutron, but TPT can't accurately represent the immense
+											// energy that the emitted neutron has. Therefore, this representation will emit five neutrons
+											// (Five is completely random, I just feel it's more accurate)
+					sim->parts[
+						sim->create_part(i == 0? ID(r) : -3, x, y, PT_NEUT) // Neutron emitted during fusion
+					].temp = R_TEMP + 4e8 + 273.15f; 							 // (approximately 4,000,000°C)
+
+				sim->pv[y/CELL][x/CELL] += 2.0f * CFDS;
 
 				// Explanation: LiD is struck by neutron;
 				//   ⁶Li + n → ⁴He(helium) + ³H(tritium)

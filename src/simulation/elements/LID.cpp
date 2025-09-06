@@ -2,8 +2,6 @@
 #include "simulation/ElementClasses.h"
 #include "simulation/ElementCommon.h"
 #include "simulation/ElementDefs.h"
-#include <algorithm>
-#include <cstdio>
 #include <linux/limits.h>
 
 static int update(UPDATE_FUNC_ARGS);
@@ -85,7 +83,7 @@ static int update(UPDATE_FUNC_ARGS) {
 		}
 
 	// Deuteride reactions
-	// (MOVED, SEE src/simulation/elements/NEUT.cpp line 106)
+	// (MOVED, see src/simulation/elements/NEUT.cpp line 106)
 
 	return 0;
 }

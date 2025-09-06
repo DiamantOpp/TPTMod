@@ -55,6 +55,7 @@ simulation_elem_names = [
 	'ETRD',
 	'NICE',
 	'NBLE',
+	'HLUM',
 	'BTRY',
 	'LCRY',
 	'STKM',

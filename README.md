@@ -1,4 +1,8 @@
-NOTE: New elements added are SPLT (short for Solid PLuTonium) and SURN (short for Solid URaNium)
+NOTE: New elements added are;
+* SPLT (Solid PLuTonium)
+* SURN (Solid URaNium)
+* LID  (LIthium Deuteride)
+* HLUM (HeLiUM)
 
 The Powder Toy - February 2025
 ==========================
