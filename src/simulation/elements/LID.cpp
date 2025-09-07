@@ -46,7 +46,7 @@ void Element::Element_LID() {
 	HighTemperature = ITH;
 	HighTemperatureTransition = NT;
 
-	DefaultProperties.life = 10;
+	DefaultProperties.life = 5; // Reaction scalar
 
 	Update = &update;
 }

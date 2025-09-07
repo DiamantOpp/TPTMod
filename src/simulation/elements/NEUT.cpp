@@ -1,6 +1,7 @@
 #include "simulation/ElementClasses.h"
 #include "simulation/ElementCommon.h"
 #include "FIRE.h"
+#include "simulation/ElementDefs.h"
 #include <cmath>
 
 static int update(UPDATE_FUNC_ARGS);
@@ -104,19 +105,25 @@ static int update(UPDATE_FUNC_ARGS)
 					sim->kill_part(ID(r));
 				}
 				break;
-			case PT_LID:
+			case PT_LID: {
+				if (!sim->rng.chance(pressureFactor, 1000)) break; // Mean free path, these are the odds of the neutron
+																						  // missing the nucleus, flying past it instead
+
 				if (sim->rng.chance(1, 10)) break; // This reaction is approximately a 9 in 10 chance, so by extension a
 																		  // 1 in 10 chance of failing
 
-				for (int i = 0; i < 2; i++)
-					sim->create_part(  -1,  x, y, PT_HLUM);
+				int reactionScale = sim->parts[ID(r)].life; // Now, I know it is only supposed to emit one neutron, but TPT can't accurately represent
+															// the immense energy that the emitted neutron has. Therefore, this representation will
+															// emit five (as of writing this) neutrons instead
+															// (Five is completely random, I just feel it's more accurate)
 
-				for (int i = 0; i < 5; i++) // Now, I know it is only supposed to emit one neutron, but TPT can't accurately represent the immense
-											// energy that the emitted neutron has. Therefore, this representation will emit five neutrons
-											// (Five is completely random, I just feel it's more accurate)
+				for (int i = 0; i < 2*reactionScale; i++)
+					sim->create_part(  -1,  x, y, PT_HLUM); // Two parts helium
+
+				for (int i = 0; i < 1*reactionScale; i++)
 					sim->parts[
-						sim->create_part(i == 0? ID(r) : -3, x, y, PT_NEUT) // Neutron emitted during fusion
-					].temp = R_TEMP + 4e8 + 273.15f; 							 // (approximately 4,000,000°C)
+						sim->create_part(i == 0? ID(r) : -3, x, y, PT_NEUT) // One part neutron
+					].temp = R_TEMP + MAX_TEMP + 273.15f;
 
 				sim->pv[y/CELL][x/CELL] += 2.0f * CFDS;
 
@@ -127,7 +134,7 @@ static int update(UPDATE_FUNC_ARGS)
 				// Net output: ⁴He₂ + n (Two helium-4 atoms, and one neutron)
 				
 				break;
-			case PT_GUNP:
+			} case PT_GUNP:
 				if (sim->rng.chance(3, 200))
 					sim->part_change_type(ID(r),x+rx,y+ry,PT_DUST);
 				break;

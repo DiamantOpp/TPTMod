@@ -2,7 +2,7 @@
 #include "SimulationConfig.h"
 #include <cstdint>
 
-constexpr float MAX_TEMP = 9999;
+constexpr float MAX_TEMP = 1e5; // Supposed to be 1e8 (100,000,000), but that number was too big and caused a segmentation fault (I really don't know why), so 1e5 (100,000) it is, even if less realistic.
 constexpr float MIN_TEMP = 0;
 constexpr float O_MAX_TEMP = 3500;
 constexpr float O_MIN_TEMP = -273;
